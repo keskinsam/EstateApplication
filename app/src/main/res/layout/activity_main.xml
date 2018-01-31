@@ -25,10 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="35dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/str_username" />
+        android:hint="@string/str_username"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/txtPassword"
@@ -36,10 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtUserName"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/str_password" />
+        android:hint="@string/str_password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnSignIn"
