@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
                     editor.putString("userEmail", email);
                     editor.putString("userPass", password);
+                    editor.commit();
+
                     Intent intent = new Intent(MainActivity.this, deneme.class);
                     startActivity(intent);
                     MainActivity.this.finish();
