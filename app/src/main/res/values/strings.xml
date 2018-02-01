@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Emlak Alım/Satım</string>
-    <string name="str_userEntry">Kullanıcı Giriş</string>
+    <string name="str_userEntry">KULLANICI GİRİŞ</string>
     <string name="str_username">Kullanıcı Adı ya da Email</string>
     <string name="str_password">Şifre</string>
     <string name="str_signIn">Giriş Yap</string>
     <string name="str_signUp">Kayıt Ol</string>
+    <string name="str_loading">Yükleniyor</string>
+    <string name="str_pleaseWait">Islem Yapılırken Bekleyiniz</string>
 </resources>
