@@ -1,6 +1,5 @@
 package com.smtgroup.estateapplication;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +13,10 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
 import java.util.HashMap;
+
+/**
+ * Author Tugay Demirel.
+ */
 
 public class MainActivity extends AppCompatActivity {
 

@@ -5,6 +5,6 @@
     <string name="str_password">Şifre</string>
     <string name="str_signIn">Giriş Yap</string>
     <string name="str_signUp">Kayıt Ol</string>
-    <string name="str_loading">Yükleniyor</string>
     <string name="str_pleaseWait">Islem Yapılırken Bekleyiniz</string>
+    <string name="str_loading">Islem Yapılırken Bekleyiniz</string>
 </resources>

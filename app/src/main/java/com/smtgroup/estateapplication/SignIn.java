@@ -21,6 +21,10 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Author Tugay Demirel.
+ */
+
 public class SignIn extends AppCompatActivity {
 
     @BindView(R.id.txtEmail)
@@ -48,12 +52,10 @@ public class SignIn extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("" + ConstantsEnum.xmlFileName, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        Log.d("Neredeyim", "SingIn.java");
         btnSignIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Log.d("sign in ", "on click");
                 email = txtEmail.getText().toString();
                 password = txtPassword.getText().toString();
                 signIn();
@@ -62,17 +64,11 @@ public class SignIn extends AppCompatActivity {
     }
 
     public void signIn() {
-        Log.d("neredeyim", "register");
-        Log.d("email", email);
-        Log.d("password", password);
-
         HashMap<String, String> hmRegister = new HashMap<>();
         hmRegister.put("ref", "3d264cacec20af4f9b237a655f49bc60");
         hmRegister.put("userEmail", email);
         hmRegister.put("userPass", password);
         hmRegister.put("face", "no");
-
-        Log.d("hasmap uzunlugu", "" + hmRegister.size());
 
         String url = "http://jsonbulut.com/json/userLogin.php";
         new JData(url, hmRegister, SignIn.this).execute();
@@ -90,23 +86,18 @@ public class SignIn extends AppCompatActivity {
             this.url = url;
             this.hashMap = hashMap;
             this.context = context;
-            progressDialog = ProgressDialog.show(context, "Yükleniyor", "Islem Yapılırken Bekleyiniz", true);
+            progressDialog = ProgressDialog.show(context, getString(R.string.str_loading), getString(R.string.str_loading), true);
         }
 
         @Override
         protected void onPreExecute() {
-            Log.d("Jdata Sinifi", "onpreexecute");
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Log.d("Jdata Sinifi", "doInBackground");
             try {
-                Log.d("jData doInBackgroundns", hashMap.get("userEmail"));
-                Log.d("jData doInBackground", hashMap.get("userPass"));
                 data = Jsoup.connect(url).data(hashMap).timeout(30000).ignoreContentType(true).execute().body();
-                Log.d("jData doInBackgroundns", data);
             } catch (Exception ex) {
                 Log.e("Get data error", "" + ex.toString());
             }
@@ -115,7 +106,6 @@ public class SignIn extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Log.d("Jdata Sinifi", "onPostExecute");
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
             try {
@@ -125,7 +115,6 @@ public class SignIn extends AppCompatActivity {
                 boolean durum = uObject.getBoolean("durum");
                 String mesaj = uObject.getString("mesaj");
                 if (durum) {
-                    Log.d("neredeyim", "onpostexecute - > durum true");
                     JSONObject informsObject = uObject.getJSONObject("bilgiler");
                     Toast.makeText(SignIn.this, mesaj + " " + informsObject.getString("userId"), Toast.LENGTH_SHORT).show();
 
@@ -137,7 +126,6 @@ public class SignIn extends AppCompatActivity {
                     startActivity(intent);
                     SignIn.this.finish();
                 } else {
-                    Log.d("neredeyim", "onpostexecute - > durum false");
                     Toast.makeText(SignIn.this, mesaj, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception ex) {
