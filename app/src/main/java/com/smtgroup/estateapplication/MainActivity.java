@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,7 +73,19 @@ public class MainActivity extends AppCompatActivity {
                 register();
             }
         });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Intent iKayit = new Intent(MainActivity.this,KayitOl.class);
+            startActivity(iKayit);
+            }
+        });
+
+
     }
+
+
 
     public void register() {
         Log.d("neredeyim", "register");
