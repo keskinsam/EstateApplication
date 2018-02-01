@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("" + ConstantsEnum.xmlFileName, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        String strEmail = sharedPreferences.getString("Email", "");
+        String strEmail = sharedPreferences.getString("userEmail", "");
 
         if (!strEmail.equals("")) {
 
             email = strEmail;
-            password = sharedPreferences.getString("Password", "");
+            password = sharedPreferences.getString("userPass", "");
 
             register();
         }
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         HashMap<String, String> hmRegister = new HashMap<>();
         hmRegister.put("ref", "3d264cacec20af4f9b237a655f49bc60");
-        hmRegister.put("userMail", email);
+        hmRegister.put("userEmail", email);
         hmRegister.put("userPass", password);
         hmRegister.put("face", "no");
 
@@ -116,12 +116,12 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             Log.d("Jdata Sinifi", "doInBackground");
             try {
-                Log.d("jData doInBackgroundns", hashMap.get("userMail"));
+                Log.d("jData doInBackgroundns", hashMap.get("userEmail"));
                 Log.d("jData doInBackground", hashMap.get("userPass"));
                 data = Jsoup.connect(url).data(hashMap).timeout(30000).ignoreContentType(true).execute().body();
                 Log.d("jData doInBackgroundns", data);
             } catch (Exception ex) {
-                Log.e("Get data error", "" + ex);
+                Log.e("Get data error", "" + ex.toString());
             }
             return null;
         }
@@ -139,8 +139,11 @@ public class MainActivity extends AppCompatActivity {
                 String mesaj = uObject.getString("mesaj");
                 if (durum) {
                     Log.d("neredeyim", "onpostexecute - > durum true");
-                    JSONObject informsObject = uObject.getJSONArray("bilgiler").getJSONObject(2);
+                    JSONObject informsObject = uObject.getJSONObject("bilgiler");
                     Toast.makeText(MainActivity.this, mesaj + " " + informsObject.getString("userId"), Toast.LENGTH_SHORT).show();
+
+                    editor.putString("userEmail", email);
+                    editor.putString("userPass", password);
                     Intent intent = new Intent(MainActivity.this, deneme.class);
                     startActivity(intent);
                     MainActivity.this.finish();
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, mesaj, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                Log.e("onpostexecure error", "" + ex.toString());
             }
         }
 
