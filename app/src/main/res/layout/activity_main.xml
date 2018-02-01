@@ -7,55 +7,13 @@
     tools:context="com.smtgroup.estateapplication.MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:gravity="center"
-        android:text="@string/str_userEntry"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="38dp"
-        android:ems="10"
-        android:hint="@string/str_username"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtEmail"
-        android:layout_marginTop="21dp"
-        android:ems="10"
-        android:hint="@string/str_password"
-        android:inputType="textPersonName" />
-
-    <Button
-        android:id="@+id/btnSignIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/txtPassword"
-        android:layout_marginTop="26dp"
-        android:text="@string/str_signIn" />
-
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSignIn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
-        android:text="@string/str_signUp" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/real_estate" />
 </RelativeLayout>
