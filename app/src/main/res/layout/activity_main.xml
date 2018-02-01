@@ -20,26 +20,26 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/txtUserName"
+        android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
         android:layout_marginTop="38dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/str_username" />
+        android:hint="@string/str_username"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/txtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtUserName"
+        android:layout_below="@+id/txtEmail"
         android:layout_marginTop="21dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/str_password" />
+        android:hint="@string/str_password"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnSignIn"
