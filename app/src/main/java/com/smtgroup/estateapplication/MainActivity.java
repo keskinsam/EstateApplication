@@ -39,9 +39,8 @@ public class MainActivity extends AppCompatActivity {
         if (!strEmail.equals("")) {
             email = strEmail;
             password = sharedPreferences.getString("userPass", "");
-
             entry();
-        }else{
+        } else {
             Intent intent = new Intent(MainActivity.this, SignIn.class);
             startActivity(intent);
             MainActivity.this.finish();
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             try {
-                JSONObject object  = new JSONObject(data);
+                JSONObject object = new JSONObject(data);
                 JSONObject uObject = object.getJSONArray("user").getJSONObject(0);
 
                 boolean durum = uObject.getBoolean("durum");
