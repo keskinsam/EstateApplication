@@ -20,77 +20,11 @@
         android:textColor="@android:color/holo_red_dark"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/btnKonut"
+    <ListView
+        android:id="@+id/listHouse"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtBaslik"
-        android:layout_marginTop="26dp"
-        android:backgroundTint="@android:color/holo_green_dark"
-        android:text="@string/daire" />
-
-    <Button
-        android:id="@+id/btnIsyeri"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnKonut"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:text="@string/rezidans" />
-
-    <Button
-        android:id="@+id/btnBina"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnIsyeri"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        android:text="@string/mustakil" />
-
-    <Button
-        android:id="@+id/btnArsa"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnBina"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:text="@string/villa" />
-
-    <Button
-        android:id="@+id/btnPlaza"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnArsa"
-        android:backgroundTint="@android:color/holo_blue_bright"
-        android:text="@string/ciftlik_evi" />
-
-    <Button
-        android:id="@+id/btnSpa"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnPlaza"
-        android:backgroundTint="@android:color/holo_purple"
-        android:text="@string/kosk_konak" />
-
-    <Button
-        android:id="@+id/btnSpor"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignStart="@+id/btnSpa"
-        android:layout_below="@+id/btnSpa"
-        android:backgroundTint="@android:color/holo_orange_light"
-        android:text="@string/yali" />
-
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignEnd="@+id/btnSpor"
-        android:layout_below="@+id/btnSpor"
-        android:backgroundTint="@android:color/holo_purple"
-        android:text="@string/yazlik" />
+        android:layout_below="@+id/txtBaslik" />
 
 </RelativeLayout>
