@@ -9,7 +9,7 @@
     tools:showIn="@layout/app_bar_homepage">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -24,7 +24,7 @@
         android:id="@+id/btnsatilik"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/txtEmail"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
         android:backgroundTint="@android:color/holo_orange_dark"
