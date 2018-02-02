@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.smtgroup.estateapplication.user.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,42 +26,13 @@ public class HomepageType extends AppCompatActivity
     @BindView(R.id.btnkiralık)
     Button btnKiralık;
 
-    TextView name, email;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-        ButterKnife.bind(this);
-
-
-
-        Log.d("neredeyim", "HomepageType sayfasinda");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        Log.d("neredeyim", "HomepageType sayfasinda1");
-
-
-        Intent intent = getIntent();
-        User user = new User();
-        user = (User) intent.getSerializableExtra("user_object");
-
-
-
-        Log.d("neredeyim", "HomepageType sayfasinda2");
-
-
-        Log.d("asdf", user.getName());
-        Log.d("asdf", user.getSurname());
-        Log.d("asdf", user.getEmail());
-
-
-
-
-
+        ButterKnife.bind(this);
 
         btnKiralık.setOnClickListener(new View.OnClickListener() {
 
@@ -106,12 +73,6 @@ public class HomepageType extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-        name = navigationView.getHeaderView(0).findViewById(R.id.txtName);
-        email = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
-        name.setText("hgdghfhg");
-        email.setText(user.getEmail());
     }
 
     @Override

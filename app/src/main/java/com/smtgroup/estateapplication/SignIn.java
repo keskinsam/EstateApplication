@@ -141,12 +141,8 @@ public class SignIn extends AppCompatActivity {
                     user.setEmail(informsObject.getString(""+UserEnum.userEmail));
                     user.setPhone(informsObject.getString(""+UserEnum.userPhone));
 
-                    Log.d("asdf", user.getName());
-                    Log.d("asdf", user.getSurname());
-                    Log.d("asdf", user.getEmail());
-
                     Intent intent = new Intent(SignIn.this, HomepageType.class);
-                    intent.putExtra("user_object",  user);
+                    intent.putExtra("user_object", (Serializable) user);
                     startActivity(intent);
                     SignIn.this.finish();
                 } else {

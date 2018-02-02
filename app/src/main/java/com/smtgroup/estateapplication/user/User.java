@@ -1,12 +1,10 @@
 package com.smtgroup.estateapplication.user;
 
-import java.io.Serializable;
-
 /**
  * Author Tugay Demirel.
  */
 
-public class User implements Serializable{
+public class User {
 
     private String id;
     private String name;
