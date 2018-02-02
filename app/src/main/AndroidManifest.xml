@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".deneme" />
-        <activity android:name=".SignIN" />
         <activity android:name=".SignIn"></activity>
     </application>
 
