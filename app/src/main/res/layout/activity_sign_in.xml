@@ -23,7 +23,7 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/str_password"
-        android:inputType="textPersonName|textPassword" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnSignIn"

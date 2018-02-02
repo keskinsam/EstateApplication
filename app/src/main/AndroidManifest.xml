@@ -18,8 +18,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".deneme" />
-        <activity android:name=".SignIn"></activity>
+        <activity android:name=".SignIN" />
+        <activity android:name=".SignIn" />
+        <activity android:name=".KayitOl" />
+        <activity
+            android:name=".HomepageType"
+            android:label="@string/title_activity_homepage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomepageCategory"
+            android:label="@string/title_activity_homepage_category"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomepageHouseCategory"
+            android:label="@string/title_activity_homepage_house_category"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AdPage"
+            android:label="@string/title_activity_ad_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomepageBusinessCategory"
+            android:label="@string/title_activity_homepage_business_category"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

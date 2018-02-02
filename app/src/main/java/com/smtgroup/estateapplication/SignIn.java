@@ -122,7 +122,7 @@ public class SignIn extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    Intent intent = new Intent(SignIn.this, deneme.class);
+                    Intent intent = new Intent(SignIn.this, HomepageType.class);
                     startActivity(intent);
                     SignIn.this.finish();
                 } else {
