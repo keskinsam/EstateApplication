@@ -13,9 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.smtgroup.estateapplication.user.User;
-import com.smtgroup.estateapplication.user.UserEnum;
-
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
@@ -119,19 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    User user = new User();
-                    user.setId(""+ UserEnum.userId);
-                    user.setName(informsObject.getString(""+ UserEnum.userName));
-                    user.setSurname(informsObject.getString(""+UserEnum.userSurname));
-                    user.setEmail(informsObject.getString(""+UserEnum.userEmail));
-                    user.setPhone(informsObject.getString(""+UserEnum.userPhone));
-
-                    Log.d("asdf", user.getName());
-                    Log.d("asdf", user.getSurname());
-                    Log.d("asdf", user.getEmail());
-
                     Intent intent = new Intent(MainActivity.this, HomepageType.class);
-                    intent.putExtra("user_object",  user);
                     startActivity(intent);
                     MainActivity.this.finish();
                 } else {
