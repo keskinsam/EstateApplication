@@ -7,13 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-<<<<<<< HEAD
-=======
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
->>>>>>> anasayfa
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -52,41 +45,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             MainActivity.this.finish();
         }
-<<<<<<< HEAD
     }
 
     public void entry() {
-=======
-
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Log.d("sign in ", "on click");
-                email = txtEmail.getText().toString();
-                password = txtPassword.getText().toString();
-                register();
-            }
-        });
-
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            Intent iKayit = new Intent(MainActivity.this,KayitOl.class);
-            startActivity(iKayit);
-            }
-        });
-
-
-    }
-
-
-
-    public void register() {
-        Log.d("neredeyim", "register");
-        Log.d("email", email);
-        Log.d("password", password);
->>>>>>> anasayfa
 
         HashMap<String, String> hmRegister = new HashMap<>();
         hmRegister.put("ref", "3d264cacec20af4f9b237a655f49bc60");
