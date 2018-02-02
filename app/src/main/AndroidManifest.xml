@@ -19,12 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".deneme" />
-<<<<<<< HEAD
-        <activity android:name=".SignIN" />
         <activity android:name=".SignIn"></activity>
-=======
-        <activity android:name=".KayitOl"></activity>
->>>>>>> anasayfa
     </application>
 
 </manifest>
