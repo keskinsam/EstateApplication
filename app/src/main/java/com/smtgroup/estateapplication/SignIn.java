@@ -61,14 +61,6 @@ public class SignIn extends AppCompatActivity {
                 signIn();
             }
         });
-
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iReg = new Intent(SignIn.this,SignUp.class);
-                startActivity(iReg);
-            }
-        });
     }
 
     public void signIn() {
@@ -130,7 +122,7 @@ public class SignIn extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    Intent intent = new Intent(SignIn.this, deneme.class);
+                    Intent intent = new Intent(SignIn.this, HomepageType.class);
                     startActivity(intent);
                     SignIn.this.finish();
                 } else {

@@ -7,17 +7,33 @@
     <string name="str_signUp">Kayıt Ol</string>
     <string name="str_pleaseWait">Islem Yapılırken Bekleyiniz</string>
     <string name="str_loading">Islem Yapılırken Bekleyiniz</string>
-    <string name="kullan_c_kay_t">Kullanıcı Kayıt</string>
-    <string name="soyad">Soyadı</string>
-    <string name="e_mail">E-mail</string>
-    <string name="telefon">Telefon</string>
-    <string name="sifre">Şifre</string>
-    <string name="ifre">Şifre</string>
-    <string name="adi">Adı</string>
-    <string name="soyadi">Soyadı</string>
-    <string name="kay_t_ol">Kayıt Ol</string>
-    <string name="kullanici_kayit">KULLANICI KAYIT</string>
-    <string name="email">E-mail</string>
-    <string name="phone">Telefon</string>
-    <string name="pass">Şifre</string>
+    <string name="satilik">SATILIK</string>
+    <string name="kiralik">KİRALIK</string>
+    <string name="ilan_tipi">İlan Tipi</string>
+    <string name="kiral_k">kiralık</string>
+    <string name="sat_l_k">satılık</string>
+    <string name="ilan_kategorisi">İlan Kategorisi</string>
+    <string name="konut">konut</string>
+    <string name="isyeri">işyeri</string>
+    <string name="bina">bina</string>
+    <string name="arsa">arsa</string>
+    <string name="title_activity_homepage">Homepage</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_homepage_category">HomepageCategory</string>
+    <string name="title_activity_homepage_subcategory">HomepageSubcategory</string>
+    <string name="title_activity_homepage_house_category">HomepageHouseCategory</string>
+    <string name="daire">Daire</string>
+    <string name="mustakil">Müstakil</string>
+    <string name="rezidans">Rezidans</string>
+    <string name="villa">Villa</string>
+    <string name="ciftlik_evi">Çiftlik Evi</string>
+    <string name="yali">Yalı</string>
+    <string name="kosk_konak">Köşk/Konak</string>
+    <string name="yazlik">Yazlık</string>
+    <string name="title_activity_ad_page">AdPage</string>
+    <string name="title_activity_homepage_business_category">HomepageBusinessCategory</string>
 </resources>
