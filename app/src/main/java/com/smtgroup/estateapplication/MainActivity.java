@@ -7,10 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -18,13 +14,12 @@ import org.jsoup.Jsoup;
 
 import java.util.HashMap;
 
-import butterknife.BindView;
-
 /**
  * Author Tugay Demirel.
  */
 
 public class MainActivity extends AppCompatActivity {
+
 
 
     SharedPreferences sharedPreferences;
@@ -54,13 +49,12 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.finish();
         }
 
+
+
     }
 
-
-
-
-
     public void entry() {
+
         HashMap<String, String> hmRegister = new HashMap<>();
         hmRegister.put("ref", "3d264cacec20af4f9b237a655f49bc60");
         hmRegister.put("userEmail", email);
@@ -116,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    Intent intent = new Intent(MainActivity.this, HomepageType.class);
+                    Intent intent = new Intent(MainActivity.this, deneme.class);
                     startActivity(intent);
                     MainActivity.this.finish();
                 } else {
