@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.smtgroup.estateapplication.enums.ConstantsEnum;
+
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
@@ -82,7 +84,7 @@ public class SignIn extends AppCompatActivity {
         String data = "";
         Context context;
 
-        public JData(String url, HashMap<String, String> hashMap, Context context) {
+        private JData(String url, HashMap<String, String> hashMap, Context context) {
             this.url = url;
             this.hashMap = hashMap;
             this.context = context;
