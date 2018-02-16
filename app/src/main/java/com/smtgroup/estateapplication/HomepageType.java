@@ -63,7 +63,7 @@ public class HomepageType extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Kiralık";
-                Intent i = new Intent(HomepageType.this, HomepageCategory.class);
+                Intent i = new Intent(HomepageType.this,AdPage.class);
                 startActivity(i);
             }
         });
@@ -72,10 +72,12 @@ public class HomepageType extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Satılık";
-                Intent i = new Intent(HomepageType.this, HomepageCategory.class);
+                Intent i = new Intent(HomepageType.this,AdPage.class);
                 startActivity(i);
             }
         });
+
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -93,7 +95,7 @@ public class HomepageType extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
@@ -169,6 +171,7 @@ public class HomepageType extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 }
