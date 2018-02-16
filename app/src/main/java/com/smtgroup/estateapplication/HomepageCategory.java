@@ -17,10 +17,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.smtgroup.estateapplication.properties.User;
-
-import java.io.Serializable;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -48,14 +44,12 @@ public class HomepageCategory extends AppCompatActivity
         Log.e("Tür",AdPage.adType);
         ButterKnife.bind(this);
 
-
-
         btnKonut.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(HomepageCategory.this,HomepageHouseCategory.class);
-//                startActivity(i);
+                Intent i = new Intent(HomepageCategory.this,HomepageHouseCategory.class);
+                startActivity(i);
             }
         });
 

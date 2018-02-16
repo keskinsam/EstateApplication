@@ -28,7 +28,7 @@ public class KayitOl extends AppCompatActivity {
         setContentView(R.layout.activity_kayit_ol);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        name = findViewById(R.id.nav_txtName);
+        name = findViewById(R.id.txtName);
         surname = findViewById(R.id.txtSurname);
         email = findViewById(R.id.txtEmail);
         phone = findViewById(R.id.txtPhone);

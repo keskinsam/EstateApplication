@@ -36,8 +36,4 @@
     <string name="yazlik">Yazlık</string>
     <string name="title_activity_ad_page">AdPage</string>
     <string name="title_activity_homepage_business_category">HomepageBusinessCategory</string>
-    <string name="str_house">Konut</string>
-    <string name="str_plot">Arsa</string>
-    <string name="str_workplace">İş Yeri</string>
-    <string name="str_building">Bina</string>
 </resources>
