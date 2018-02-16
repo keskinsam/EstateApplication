@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.smtgroup.estateapplication.properties.User;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,12 +47,14 @@ public class HomepageCategory extends AppCompatActivity
 
         ButterKnife.bind(this);
 
+
+
         btnKonut.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomepageCategory.this,HomepageHouseCategory.class);
-                startActivity(i);
+//                Intent i = new Intent(HomepageCategory.this,HomepageHouseCategory.class);
+//                startActivity(i);
             }
         });
 

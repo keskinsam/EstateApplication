@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.smtgroup.estateapplication.enums.ConstantsEnum;
+import com.smtgroup.estateapplication.enums.UserEnum;
+import com.smtgroup.estateapplication.properties.User;
 
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -24,7 +26,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Author Tugay Demirel.
+ * @author Tugay Demirel.
+ *
  */
 
 public class SignIn extends AppCompatActivity {
@@ -124,9 +127,18 @@ public class SignIn extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
+                    User user = new User();
+                    user.setName(informsObject.getString(""+ UserEnum.userName));
+                    user.setSurname(informsObject.getString(""+ UserEnum.userSurname));
+                    user.setEmail(informsObject.getString(""+ UserEnum.userEmail));
+                    user.setPhone(informsObject.getString(""+ UserEnum.userPhone));
+
+
                     Intent intent = new Intent(SignIn.this, HomepageType.class);
+                    intent.putExtra("current_user", user);
                     startActivity(intent);
                     SignIn.this.finish();
+
                 } else {
                     Toast.makeText(SignIn.this, mesaj, Toast.LENGTH_SHORT).show();
                 }

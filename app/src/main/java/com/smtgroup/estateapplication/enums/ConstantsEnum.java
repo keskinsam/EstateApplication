@@ -1,7 +1,8 @@
 package com.smtgroup.estateapplication.enums;
 
 /**
- * Author Tugay Demirel.
+ * @author Tugay Demirel.
+ *
  */
 
 public enum ConstantsEnum {

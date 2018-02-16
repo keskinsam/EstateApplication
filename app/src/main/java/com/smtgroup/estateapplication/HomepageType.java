@@ -1,9 +1,14 @@
 package com.smtgroup.estateapplication;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +19,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.smtgroup.estateapplication.properties.User;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +36,12 @@ public class HomepageType extends AppCompatActivity
     @BindView(R.id.btnkiralık)
     Button btnKiralık;
 
+    TextView nav_txtName, nav_txtEmail;
+
+    ImageView img;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +50,20 @@ public class HomepageType extends AppCompatActivity
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
+        Intent intent = getIntent();
+        User user = intent.getParcelableExtra("current_user");
+
+        if (user != null)
+            Log.d("asdf Tugay", user.getName());
+
+
+
         btnKiralık.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Kiralık";
-                Intent i = new Intent(HomepageType.this,HomepageCategory.class);
+                Intent i = new Intent(HomepageType.this, HomepageCategory.class);
                 startActivity(i);
             }
         });
@@ -48,12 +72,10 @@ public class HomepageType extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Satılık";
-                Intent i = new Intent(HomepageType.this,HomepageCategory.class);
+                Intent i = new Intent(HomepageType.this, HomepageCategory.class);
                 startActivity(i);
             }
         });
-
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -71,8 +93,24 @@ public class HomepageType extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
+        nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
+
+        img = navigationView.getHeaderView(0).findViewById(R.id.nav_imageView);
+
+        nav_txtName.setText(user.getName() + " " + user.getSurname());
+        nav_txtEmail.setText(user.getEmail());
+
+
+        //todo img set edilecek
+
+
+
+
+
     }
 
     @Override
@@ -131,7 +169,6 @@ public class HomepageType extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 }
