@@ -40,7 +40,13 @@
         <activity
             android:name=".HomepageBusinessCategory"
             android:label="@string/title_activity_homepage_business_category"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".Detail"></activity>
     </application>
 
 </manifest>

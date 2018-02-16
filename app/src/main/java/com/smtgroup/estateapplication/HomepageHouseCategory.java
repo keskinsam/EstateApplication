@@ -1,5 +1,6 @@
 package com.smtgroup.estateapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,6 +87,16 @@ public class HomepageHouseCategory extends AppCompatActivity
             }
         };
         listHouse.setAdapter(adp);
+
+        listHouse.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                AdPage.adCategory = ls.get(i).toString();
+                Intent intent = new Intent(HomepageHouseCategory.this,HomepageType.class);
+                startActivity(intent);
+
+            }
+        });
 
 
 
@@ -171,7 +183,7 @@ public class HomepageHouseCategory extends AppCompatActivity
         ls.add("Müstakil");
         ls.add("Villa");
         ls.add("Çiftlik Evi");
-        ls.add("Köşk/Konak");
+        ls.add("Köşk");
         ls.add("Yalı");
         ls.add("Yazlık");
 

@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    Intent intent = new Intent(MainActivity.this, HomepageType.class);
+                    Intent intent = new Intent(MainActivity.this, HomepageCategory.class);
                     startActivity(intent);
                     MainActivity.this.finish();
                 } else {

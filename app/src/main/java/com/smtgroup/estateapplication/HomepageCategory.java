@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,6 +41,7 @@ public class HomepageCategory extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Log.e("Tür",AdPage.adType);
         ButterKnife.bind(this);
 
         btnKonut.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +49,32 @@ public class HomepageCategory extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomepageCategory.this,HomepageHouseCategory.class);
+                startActivity(i);
+            }
+        });
+
+        btnIsyeri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomepageCategory.this,HomepageBusinessCategory.class);
+                startActivity(i);
+            }
+        });
+
+        btnArsa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AdPage.adCategory = "Arsa";
+                Intent i = new Intent(HomepageCategory.this,HomepageType.class);
+                startActivity(i);
+            }
+        });
+
+        btnBina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AdPage.adCategory = "Bina";
+                Intent i = new Intent(HomepageCategory.this,HomepageType.class);
                 startActivity(i);
             }
         });
