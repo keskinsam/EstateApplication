@@ -7,21 +7,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import com.smtgroup.estateapplication.enums.UserEnum;
+import com.smtgroup.estateapplication.properties.User;
 
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
 import java.util.HashMap;
 
-import butterknife.BindView;
-
 /**
- * Author Tugay Demirel.
+ * @author Tugay Demirel.
+ *
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -104,19 +102,26 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             try {
                 JSONObject object  = new JSONObject(data);
-                JSONObject uObject = object.getJSONArray("user").getJSONObject(0);
+                JSONObject uObject = object.getJSONArray(""+ UserEnum.user).getJSONObject(0);
 
                 boolean durum = uObject.getBoolean("durum");
                 String mesaj = uObject.getString("mesaj");
                 if (durum) {
                     JSONObject informsObject = uObject.getJSONObject("bilgiler");
-                    Toast.makeText(MainActivity.this, mesaj + " " + informsObject.getString("userId"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, mesaj + " " + informsObject.getString(""+ UserEnum.userId), Toast.LENGTH_SHORT).show();
 
                     editor.putString("userEmail", email);
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    Intent intent = new Intent(MainActivity.this, HomepageCategory.class);
+                    User user = new User();
+                    user.setName(informsObject.getString(""+ UserEnum.userName));
+                    user.setSurname(informsObject.getString(""+ UserEnum.userSurname));
+                    user.setEmail(informsObject.getString(""+ UserEnum.userEmail));
+                    user.setPhone(informsObject.getString(""+ UserEnum.userPhone));
+
+                    Intent intent = new Intent(MainActivity.this, HomepageType.class);
+                    intent.putExtra("current_user", user);
                     startActivity(intent);
                     MainActivity.this.finish();
                 } else {
