@@ -39,7 +39,7 @@ public class HomepageType extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Kiralık";
-                Intent i = new Intent(HomepageType.this,HomepageCategory.class);
+                Intent i = new Intent(HomepageType.this,AdPage.class);
                 startActivity(i);
             }
         });
@@ -48,7 +48,7 @@ public class HomepageType extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Satılık";
-                Intent i = new Intent(HomepageType.this,HomepageCategory.class);
+                Intent i = new Intent(HomepageType.this,AdPage.class);
                 startActivity(i);
             }
         });
