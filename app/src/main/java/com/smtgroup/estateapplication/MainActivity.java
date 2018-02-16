@@ -127,8 +127,9 @@ public class MainActivity extends AppCompatActivity {
                     user.setEmail(informsObject.getString(""+ UserEnum.userEmail));
                     user.setPhone(informsObject.getString(""+ UserEnum.userPhone));
 
-                    intent.putExtra("current_user", user);
                     Intent intent = new Intent(MainActivity.this, HomepageCategory.class);
+                    intent.putExtra("current_user", user);
+
                     startActivity(intent);
                     MainActivity.this.finish();
                 } else {
