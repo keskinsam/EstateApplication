@@ -18,8 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignIN" />
         <activity android:name=".SignIn" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".KayitOl" />
         <activity
             android:name=".HomepageType"
             android:label="@string/title_activity_homepage"

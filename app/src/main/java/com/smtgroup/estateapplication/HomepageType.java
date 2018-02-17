@@ -36,12 +36,10 @@ public class HomepageType extends AppCompatActivity
     @BindView(R.id.btnkiralık)
     Button btnKiralık;
 
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
-
     TextView nav_txtName, nav_txtEmail;
 
     ImageView img;
+
 
 
     @Override
@@ -52,12 +50,20 @@ public class HomepageType extends AppCompatActivity
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
+        Intent intent = getIntent();
+        User user = intent.getParcelableExtra("current_user");
+
+        if (user != null)
+            Log.d("asdf Tugay", user.getName());
+
+
+
         btnKiralık.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Kiralık";
-                Intent i = new Intent(HomepageType.this, AdPage.class);
+                Intent i = new Intent(HomepageType.this,AdPage.class);
                 startActivity(i);
             }
         });
@@ -66,10 +72,13 @@ public class HomepageType extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Satılık";
-                Intent i = new Intent(HomepageType.this, AdPage.class);
+                Intent i = new Intent(HomepageType.this,AdPage.class);
                 startActivity(i);
             }
         });
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,16 +95,24 @@ public class HomepageType extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        setPersonelInfos();
-    }
 
-    public void setPersonelInfos() {
         nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
         nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
 
-        nav_txtName.setText(MainActivity.user.getName() + " " + MainActivity.user.getSurname());
-        nav_txtEmail.setText(MainActivity.user.getEmail());
+        img = navigationView.getHeaderView(0).findViewById(R.id.nav_imageView);
+
+        nav_txtName.setText(user.getName() + " " + user.getSurname());
+        nav_txtEmail.setText(user.getEmail());
+
+
+        //todo img set edilecek
+
+
+
+
+
     }
 
     @Override
@@ -136,24 +153,17 @@ public class HomepageType extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_house) {
-            Intent intent = new Intent(HomepageType.this, HomepageHouseCategory.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_plot) {
-            AdPage.adCategory = "Arsa";
-            Intent i = new Intent(HomepageType.this, HomepageType.class);
-            startActivity(i);
-        } else if (id == R.id.nav_workplace) {
-            Intent i = new Intent(HomepageType.this, HomepageBusinessCategory.class);
-            startActivity(i);
-        } else if (id == R.id.nav_building) {
-            AdPage.adCategory = "Bina";
-            Intent i = new Intent(HomepageType.this, HomepageType.class);
-            startActivity(i);
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
         } else if (id == R.id.nav_share) {
-            Log.e("Tiklama Eylemi ", "Share nav elemanina tiklandi");
+
         } else if (id == R.id.nav_send) {
-            Log.e("Tiklama Eylemi ", "Send nav elemanina tiklandi");
 
         }
 
@@ -161,6 +171,7 @@ public class HomepageType extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 }

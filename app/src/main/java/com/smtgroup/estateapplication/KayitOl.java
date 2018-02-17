@@ -17,7 +17,7 @@ import org.jsoup.Jsoup;
 
 import java.util.HashMap;
 
-public class SignUp extends AppCompatActivity {
+public class KayitOl extends AppCompatActivity {
 
     EditText name,surname,email,phone,password;
     Button register;
@@ -47,7 +47,7 @@ public class SignUp extends AppCompatActivity {
                 hm.put("userMail",email.getText().toString());
                 hm.put("userPass",password.getText().toString());
                 String url = "http://jsonbulut.com/json/userRegister.php ";
-                new reg (url,hm,SignUp.this).execute();
+                new reg (url,hm,KayitOl.this).execute();
             }
         });
 
@@ -107,9 +107,9 @@ public class SignUp extends AppCompatActivity {
                 String mesaj = kobj.getString("mesaj");
                 if(durum) {
                     String kid = kobj.getString("kullaniciId");
-                    Toast.makeText(SignUp.this, mesaj + " " + kid , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KayitOl.this, mesaj + " " + kid , Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(SignUp.this, mesaj, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KayitOl.this, mesaj, Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

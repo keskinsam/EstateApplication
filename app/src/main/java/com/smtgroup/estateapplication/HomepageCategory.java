@@ -38,11 +38,6 @@ public class HomepageCategory extends AppCompatActivity
     @BindView(R.id.btnArsa)
     Button btnArsa;
 
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
-
-    TextView nav_txtName, nav_txtEmail;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +45,10 @@ public class HomepageCategory extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Log.e("HomepageCategory.java  Tür: ",AdPage.adType);
-
+        Log.e("Tür",AdPage.adType);
         ButterKnife.bind(this);
+
+
 
         btnKonut.setOnClickListener(new View.OnClickListener() {
 
@@ -105,18 +101,8 @@ public class HomepageCategory extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        setPersonelInfos();
-
-    }
-
-    public void setPersonelInfos(){
-        nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
-        nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
-
-        nav_txtName.setText(MainActivity.user.getName() + " " + MainActivity.user.getSurname());
-        nav_txtEmail.setText(MainActivity.user.getEmail());
     }
 
     @Override
@@ -157,24 +143,17 @@ public class HomepageCategory extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_house) {
-            Intent intent = new Intent(HomepageCategory.this, HomepageHouseCategory.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_plot) {
-            AdPage.adCategory = "Arsa";
-            Intent i = new Intent(HomepageCategory.this,HomepageType.class);
-            startActivity(i);
-        } else if (id == R.id.nav_workplace) {
-            Intent i = new Intent(HomepageCategory.this,HomepageBusinessCategory.class);
-            startActivity(i);
-        } else if (id == R.id.nav_building) {
-            AdPage.adCategory = "Bina";
-            Intent i = new Intent(HomepageCategory.this,HomepageType.class);
-            startActivity(i);
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
         } else if (id == R.id.nav_share) {
-            Log.e("Tiklama Eylemi " , "Share nav elemanina tiklandi");
+
         } else if (id == R.id.nav_send) {
-            Log.e("Tiklama Eylemi " , "Send nav elemanina tiklandi");
 
         }
 
