@@ -35,11 +35,10 @@ public class HomepageType extends AppCompatActivity
     Button btnSatilik;
     @BindView(R.id.btnkiralık)
     Button btnKiralık;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     TextView nav_txtName, nav_txtEmail;
-
-    ImageView img;
-
 
 
     @Override
@@ -50,20 +49,12 @@ public class HomepageType extends AppCompatActivity
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        User user = intent.getParcelableExtra("current_user");
-
-        if (user != null)
-            Log.d("asdf Tugay", user.getName());
-
-
 
         btnKiralık.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Kiralık";
-                Intent i = new Intent(HomepageType.this,AdPage.class);
+                Intent i = new Intent(HomepageType.this, AdPage.class);
                 startActivity(i);
             }
         });
@@ -72,12 +63,10 @@ public class HomepageType extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AdPage.adType = "Satılık";
-                Intent i = new Intent(HomepageType.this,AdPage.class);
+                Intent i = new Intent(HomepageType.this, AdPage.class);
                 startActivity(i);
             }
         });
-
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -95,24 +84,16 @@ public class HomepageType extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        setUserInfos();
+    }
+
+    public void setUserInfos(){
         nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
         nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
-
-        img = navigationView.getHeaderView(0).findViewById(R.id.nav_imageView);
-
-        nav_txtName.setText(user.getName() + " " + user.getSurname());
-        nav_txtEmail.setText(user.getEmail());
-
-
-        //todo img set edilecek
-
-
-
-
-
+        nav_txtName.setText(MainActivity.user.getName() + " " + MainActivity.user.getSurname());
+        nav_txtEmail.setText(MainActivity.user.getEmail());
     }
 
     @Override
@@ -171,7 +152,6 @@ public class HomepageType extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 }

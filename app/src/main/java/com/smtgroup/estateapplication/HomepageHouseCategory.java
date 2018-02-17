@@ -37,6 +37,11 @@ public class HomepageHouseCategory extends AppCompatActivity
     LayoutInflater linf;
     BaseAdapter adp;
 
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+
+    TextView nav_txtName, nav_txtEmail;
+
 
     List ls = new ArrayList();
     @Override
@@ -117,6 +122,14 @@ public class HomepageHouseCategory extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        setUserInfos();
+    }
+
+    public void setUserInfos(){
+        nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
+        nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
+        nav_txtName.setText(MainActivity.user.getName() + " " + MainActivity.user.getSurname());
+        nav_txtEmail.setText(MainActivity.user.getEmail());
     }
 
     @Override

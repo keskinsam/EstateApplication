@@ -133,12 +133,10 @@ public class SignIn extends AppCompatActivity {
                     user.setEmail(informsObject.getString(""+ UserEnum.userEmail));
                     user.setPhone(informsObject.getString(""+ UserEnum.userPhone));
 
-
+                    MainActivity.user = user;
                     Intent intent = new Intent(SignIn.this, HomepageType.class);
-                    intent.putExtra("current_user", user);
                     startActivity(intent);
                     SignIn.this.finish();
-
                 } else {
                     Toast.makeText(SignIn.this, mesaj, Toast.LENGTH_SHORT).show();
                 }
