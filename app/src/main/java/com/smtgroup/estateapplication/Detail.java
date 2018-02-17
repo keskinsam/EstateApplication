@@ -31,13 +31,9 @@ public class Detail extends AppCompatActivity {
     @BindView(R.id.addDetail)
     WebView detail;
 
-
-
-
     static JSONObject udata = null;
 
     private SliderLayout mDemoSlider;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +79,6 @@ public class Detail extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         udata = null;
-
     }
 }

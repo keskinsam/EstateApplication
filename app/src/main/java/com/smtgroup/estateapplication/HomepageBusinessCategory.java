@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,17 +52,13 @@ public class HomepageBusinessCategory extends AppCompatActivity
         Log.d("Sizeee :",  ""+ls.size());
         linf = LayoutInflater.from(this);
 
-
         ButterKnife.bind(this);
 
         adp = new BaseAdapter() {
             @Override
             public int getCount() {
-
                 return ls.size();
-
             }
-
             @Override
             public Object getItem(int position) {
                 return null;
@@ -95,15 +92,6 @@ public class HomepageBusinessCategory extends AppCompatActivity
                 AdPage.adCategory = ls.get(i).toString();
                 Intent intent = new Intent(HomepageBusinessCategory.this,HomepageType.class);
                 startActivity(intent);
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
 
@@ -162,18 +150,24 @@ public class HomepageBusinessCategory extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_house) {
+            Intent i = new Intent(HomepageBusinessCategory.this,HomepageHouseCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_workplace) {
+            Intent i = new Intent(HomepageBusinessCategory.this,HomepageBusinessCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_building) {
+            AdPage.adCategory = "Bina";
+            Intent i = new Intent(HomepageBusinessCategory.this,HomepageType.class);
+            startActivity(i);
+        } else if (id == R.id.nav_plot) {
+            AdPage.adCategory = "Arsa";
+            Intent i = new Intent(HomepageBusinessCategory.this,HomepageType.class);
+            startActivity(i);
         } else if (id == R.id.nav_share) {
-
+            Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_send) {
-
+            Toast.makeText(this, "Send butonuna tiklandi", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

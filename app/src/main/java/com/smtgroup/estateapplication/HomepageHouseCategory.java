@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class HomepageHouseCategory extends AppCompatActivity
 
 
     List ls = new ArrayList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class HomepageHouseCategory extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         dataGetir();
-        Log.d("Sizeee :",  ""+ls.size());
+        Log.d("Sizeee :", "" + ls.size());
         linf = LayoutInflater.from(this);
 
 
@@ -61,9 +63,7 @@ public class HomepageHouseCategory extends AppCompatActivity
         adp = new BaseAdapter() {
             @Override
             public int getCount() {
-
                 return ls.size();
-
             }
 
             @Override
@@ -85,8 +85,8 @@ public class HomepageHouseCategory extends AppCompatActivity
                 try {
                     TextView txtKategori = view.findViewById(R.id.txtHouseCategory);
                     txtKategori.setText(ls.get(position).toString());
-                }catch (Exception e) {
-                    Log.e("Liste doldurma hatası",e.toString());
+                } catch (Exception e) {
+                    Log.e("Liste doldurma hatası", e.toString());
                 }
                 return view;
             }
@@ -97,20 +97,9 @@ public class HomepageHouseCategory extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 AdPage.adCategory = ls.get(i).toString();
-                Intent intent = new Intent(HomepageHouseCategory.this,HomepageType.class);
+                Intent intent = new Intent(HomepageHouseCategory.this, HomepageType.class);
                 startActivity(intent);
 
-            }
-        });
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
 
@@ -125,7 +114,7 @@ public class HomepageHouseCategory extends AppCompatActivity
         setUserInfos();
     }
 
-    public void setUserInfos(){
+    public void setUserInfos() {
         nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
         nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
         nav_txtName.setText(MainActivity.user.getName() + " " + MainActivity.user.getSurname());
@@ -170,18 +159,24 @@ public class HomepageHouseCategory extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_house) {
+            Intent i = new Intent(HomepageHouseCategory.this, HomepageHouseCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_workplace) {
+            Intent i = new Intent(HomepageHouseCategory.this, HomepageBusinessCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_building) {
+            AdPage.adCategory = "Bina";
+            Intent i = new Intent(HomepageHouseCategory.this, HomepageType.class);
+            startActivity(i);
+        } else if (id == R.id.nav_plot) {
+            AdPage.adCategory = "Arsa";
+            Intent i = new Intent(HomepageHouseCategory.this, HomepageType.class);
+            startActivity(i);
         } else if (id == R.id.nav_share) {
-
+            Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_send) {
-
+            Toast.makeText(this, "Send butonuna tiklandi", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
