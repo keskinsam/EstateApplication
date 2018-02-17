@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.smtgroup.estateapplication.properties.User;
 import com.squareup.picasso.Picasso;
@@ -39,7 +40,6 @@ public class HomepageType extends AppCompatActivity
     NavigationView navigationView;
 
     TextView nav_txtName, nav_txtEmail;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +65,6 @@ public class HomepageType extends AppCompatActivity
                 AdPage.adType = "Satılık";
                 Intent i = new Intent(HomepageType.this, AdPage.class);
                 startActivity(i);
-            }
-        });
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
 
@@ -134,18 +124,24 @@ public class HomepageType extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_house) {
+            Intent i = new Intent(HomepageType.this,HomepageHouseCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_workplace) {
+            Intent i = new Intent(HomepageType.this,HomepageBusinessCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_building) {
+            AdPage.adCategory = "Bina";
+            Intent i = new Intent(HomepageType.this,HomepageType.class);
+            startActivity(i);
+        } else if (id == R.id.nav_plot) {
+            AdPage.adCategory = "Arsa";
+            Intent i = new Intent(HomepageType.this,HomepageType.class);
+            startActivity(i);
         } else if (id == R.id.nav_share) {
-
+            Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_send) {
-
+            Toast.makeText(this, "Send butonuna tiklandi", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
