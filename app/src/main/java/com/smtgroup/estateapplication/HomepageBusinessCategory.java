@@ -151,17 +151,24 @@ public class HomepageBusinessCategory extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_house) {
+            Intent intent = new Intent(HomepageBusinessCategory.this, HomepageHouseCategory.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_plot) {
+            AdPage.adCategory = "Arsa";
+            Intent i = new Intent(HomepageBusinessCategory.this,HomepageType.class);
+            startActivity(i);
+        } else if (id == R.id.nav_workplace) {
+            Intent i = new Intent(HomepageBusinessCategory.this,HomepageBusinessCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_building) {
+            AdPage.adCategory = "Bina";
+            Intent i = new Intent(HomepageBusinessCategory.this,HomepageType.class);
+            startActivity(i);
         } else if (id == R.id.nav_share) {
-
+            Log.e("Tiklama Eylemi " , "Share nav elemanina tiklandi");
         } else if (id == R.id.nav_send) {
+            Log.e("Tiklama Eylemi " , "Send nav elemanina tiklandi");
 
         }
 

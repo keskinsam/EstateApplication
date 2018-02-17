@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private String email;
     private String password;
 
+    static User user = new User();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +54,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             MainActivity.this.finish();
         }
-
     }
-
-
-
-
 
     public void entry() {
         HashMap<String, String> hmRegister = new HashMap<>();
@@ -115,11 +112,12 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    User user = new User();
                     user.setName(informsObject.getString(""+ UserEnum.userName));
                     user.setSurname(informsObject.getString(""+ UserEnum.userSurname));
                     user.setEmail(informsObject.getString(""+ UserEnum.userEmail));
                     user.setPhone(informsObject.getString(""+ UserEnum.userPhone));
+
+                    Log.e("location","Main activitiy'den user nesnesi gonderildi: " + user.getName());
 
                     Intent intent = new Intent(MainActivity.this, HomepageCategory.class);
                     intent.putExtra("current_user", user);
@@ -133,6 +131,5 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("onpostexecure error", "" + ex.toString());
             }
         }
-
     }
 }
