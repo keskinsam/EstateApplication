@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private String email;
     private String password;
 
+    static User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
-
-
 
     public void entry() {
         HashMap<String, String> hmRegister = new HashMap<>();
@@ -115,15 +113,13 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("userPass", password);
                     editor.commit();
 
-                    User user = new User();
+                    user = new User();
                     user.setName(informsObject.getString(""+ UserEnum.userName));
                     user.setSurname(informsObject.getString(""+ UserEnum.userSurname));
                     user.setEmail(informsObject.getString(""+ UserEnum.userEmail));
                     user.setPhone(informsObject.getString(""+ UserEnum.userPhone));
 
                     Intent intent = new Intent(MainActivity.this, HomepageCategory.class);
-                    intent.putExtra("current_user", user);
-
                     startActivity(intent);
                     MainActivity.this.finish();
                 } else {
