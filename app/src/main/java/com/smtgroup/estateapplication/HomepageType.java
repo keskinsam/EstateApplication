@@ -41,6 +41,7 @@ public class HomepageType extends AppCompatActivity
 
     TextView nav_txtName, nav_txtEmail;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

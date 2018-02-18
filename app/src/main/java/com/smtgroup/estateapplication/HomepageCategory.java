@@ -1,7 +1,10 @@
 package com.smtgroup.estateapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -18,9 +21,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smtgroup.estateapplication.enums.CategoryEnum;
+import com.smtgroup.estateapplication.enums.UserEnum;
+import com.smtgroup.estateapplication.properties.Category;
 import com.smtgroup.estateapplication.properties.User;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,22 +63,24 @@ public class HomepageCategory extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Log.e("Tür",AdPage.adType);
+        Log.e("Location ", "HomepageCategory");
+
+        Log.e("Tür", AdPage.adType);
         ButterKnife.bind(this);
 
         btnKonut.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HomepageCategory.this,HomepageHouseCategory.class);
-                startActivity(i);
+                Intent intent = new Intent(HomepageCategory.this, HomepageHouseCategory.class);
+                startActivity(intent);
             }
         });
 
         btnIsyeri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomepageCategory.this,HomepageBusinessCategory.class);
+                Intent i = new Intent(HomepageCategory.this, HomepageBusinessCategory.class);
                 startActivity(i);
             }
         });
@@ -74,7 +89,8 @@ public class HomepageCategory extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 AdPage.adCategory = "Arsa";
-                Intent i = new Intent(HomepageCategory.this,HomepageType.class);
+                Intent i = new Intent(HomepageCategory.this, HomepageType.class);
+                Bundle bundle = new Bundle();
                 startActivity(i);
             }
         });
@@ -83,7 +99,7 @@ public class HomepageCategory extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 AdPage.adCategory = "Bina";
-                Intent i = new Intent(HomepageCategory.this,HomepageType.class);
+                Intent i = new Intent(HomepageCategory.this, HomepageType.class);
                 startActivity(i);
             }
         });
@@ -98,7 +114,7 @@ public class HomepageCategory extends AppCompatActivity
         setUserInfos();
     }
 
-    public void setUserInfos(){
+    public void setUserInfos() {
         nav_txtName = navigationView.getHeaderView(0).findViewById(R.id.nav_txtName);
         nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
         nav_txtName.setText(MainActivity.user.getName() + " " + MainActivity.user.getSurname());
@@ -144,18 +160,18 @@ public class HomepageCategory extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_house) {
-            Intent i = new Intent(HomepageCategory.this,HomepageHouseCategory.class);
+            Intent i = new Intent(HomepageCategory.this, HomepageHouseCategory.class);
             startActivity(i);
         } else if (id == R.id.nav_workplace) {
-            Intent i = new Intent(HomepageCategory.this,HomepageBusinessCategory.class);
+            Intent i = new Intent(HomepageCategory.this, HomepageBusinessCategory.class);
             startActivity(i);
         } else if (id == R.id.nav_building) {
             AdPage.adCategory = "Bina";
-            Intent i = new Intent(HomepageCategory.this,HomepageType.class);
+            Intent i = new Intent(HomepageCategory.this, HomepageType.class);
             startActivity(i);
         } else if (id == R.id.nav_plot) {
             AdPage.adCategory = "Arsa";
-            Intent i = new Intent(HomepageCategory.this,HomepageType.class);
+            Intent i = new Intent(HomepageCategory.this, HomepageType.class);
             startActivity(i);
         } else if (id == R.id.nav_share) {
             Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
@@ -167,4 +183,117 @@ public class HomepageCategory extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+//    public void getCategory() {
+//        HashMap<String, String> hmRegister = new HashMap<>();
+//        hmRegister.put("ref", "3d264cacec20af4f9b237a655f49bc60");
+//        String url = "http://jsonbulut.com/json/companyCategory.php";
+//        new JData(url, hmRegister, this).execute();
+////        connect(url, hmRegister);
+//    }
+//
+//    public void connect(String url, HashMap<String, String> hashMap) {
+//        try {
+//            String data = Jsoup.connect(url).data(hashMap).timeout(30000).ignoreContentType(true).execute().body();
+//
+//            JSONObject object = new JSONObject(data);
+//            JSONObject uObject = object.getJSONArray("" + CategoryEnum.Kategoriler).getJSONObject(0);
+//
+//            boolean durum = uObject.getBoolean("durum");
+//            String mesaj = uObject.getString("mesaj");
+//            if (durum) {
+//                Log.e("HomepageCategory.durum", "" + durum);
+//                JSONArray categoryObjects = uObject.getJSONArray("" + CategoryEnum.Categories);
+////                Log.e("HomepageCategory.categoryObjects size ",""+categoryObjects.length());
+//                categoryList = new ArrayList<>();
+//                for (int i = 0; i < categoryObjects.length(); i++) {
+//                    Log.e("HomepageCategory i", "" + i);
+//
+//                    JSONObject jsonObject = categoryObjects.getJSONObject(i);
+//                    Category category = new Category();
+//                    category.setId(jsonObject.getString("" + CategoryEnum.CatogryId));
+//                    category.setName(jsonObject.getString("" + CategoryEnum.CatogryName));
+//                    category.setTopId(jsonObject.getString("" + CategoryEnum.TopCatogryId));
+//                    categoryList.add(category);
+//                }
+//
+//
+//            } else {
+//                Toast.makeText(HomepageCategory.this, mesaj, Toast.LENGTH_SHORT).show();
+//            }
+//        } catch (Exception ex) {
+//            Log.e("onpostexecure error", "" + ex.toString());
+//        }
+//    }
+//
+//    class JData extends AsyncTask<Void, Void, Void> {
+//
+//        String url = "";
+//        HashMap<String, String> hashMap = null;
+//        String data = "";
+//        Context context;
+//
+//        public JData(String url, HashMap<String, String> hashMap, Context context) {
+//            this.url = url;
+//            this.hashMap = hashMap;
+//            this.context = context;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            try {
+//                data = Jsoup.connect(url).data(hashMap).timeout(30000).ignoreContentType(true).execute().body();
+//            } catch (Exception ex) {
+//                Log.e("Get data error", "" + ex.toString());
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//            try {
+//                JSONObject object = new JSONObject(data);
+//                JSONObject uObject = object.getJSONArray("" + CategoryEnum.Kategoriler).getJSONObject(0);
+//
+//                boolean durum = uObject.getBoolean("durum");
+//                String mesaj = uObject.getString("mesaj");
+//                if (durum) {
+//                    Log.e("HomepageCategory.durum", "" + durum);
+//                    JSONArray categoryObjects = uObject.getJSONArray("" + CategoryEnum.Categories);
+////                    Log.e("HomepageCategory.categoryObjects size ",""+categoryObjects.length());
+//                    categoryList = new ArrayList<>();
+//                    for (int i = 0; i < categoryObjects.length(); i++) {
+//                        Log.e("HomepageCategory i", "" + i);
+//
+//                        JSONObject jsonObject = categoryObjects.getJSONObject(i);
+//                        Category category = new Category();
+//                        category.setId(jsonObject.getString("" + CategoryEnum.CatogryId));
+//                        category.setName(jsonObject.getString("" + CategoryEnum.CatogryName));
+//                        category.setTopId(jsonObject.getString("" + CategoryEnum.TopCatogryId));
+//                        categoryList.add(category);
+//                    }
+//
+//                    Log.e("Gonderilen list size ", "" + categoryList.size());
+//                    Intent intent = new Intent(HomepageCategory.this, HomepageHouseCategory.class);
+//
+//                    intent.putParcelableArrayListExtra("com.smtgroup.estateapplication.properties.Category", categoryList);
+//                    startActivity(intent);
+//
+//
+//                } else {
+//                    Toast.makeText(HomepageCategory.this, mesaj, Toast.LENGTH_SHORT).show();
+//                }
+//            } catch (Exception ex) {
+//                Log.e("onpostexecure error", "" + ex.toString());
+//            }
+//        }
+//
+//    }
+
 }

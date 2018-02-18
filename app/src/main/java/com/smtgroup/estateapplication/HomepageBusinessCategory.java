@@ -1,6 +1,8 @@
 package com.smtgroup.estateapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,7 +24,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smtgroup.estateapplication.enums.CategoryEnum;
+import com.smtgroup.estateapplication.properties.Category;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +51,9 @@ public class HomepageBusinessCategory extends AppCompatActivity
     BaseAdapter adp;
 
     List ls = new ArrayList();
+
+    List<Category> categoryList = new ArrayList<>();
+    List<String> categoryStringList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +61,7 @@ public class HomepageBusinessCategory extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dataGetir();
-        Log.d("Sizeee :",  ""+ls.size());
+        getCategory();
         linf = LayoutInflater.from(this);
 
         ButterKnife.bind(this);
@@ -57,7 +69,7 @@ public class HomepageBusinessCategory extends AppCompatActivity
         adp = new BaseAdapter() {
             @Override
             public int getCount() {
-                return ls.size();
+                return categoryStringList.size();
             }
             @Override
             public Object getItem(int position) {
@@ -89,7 +101,7 @@ public class HomepageBusinessCategory extends AppCompatActivity
         listBusiness.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                AdPage.adCategory = ls.get(i).toString();
+                AdPage.adCategory = categoryStringList.get(i).toString();
                 Intent intent = new Intent(HomepageBusinessCategory.this,HomepageType.class);
                 startActivity(intent);
             }
@@ -175,28 +187,118 @@ public class HomepageBusinessCategory extends AppCompatActivity
         return true;
     }
 
-    public List dataGetir() {
 
-        ls.add("Akaryakıt İstasyonu");
-        ls.add("Atölye");
-        ls.add("Büfe");
-        ls.add("Büro/Ofis");
-        ls.add("Cafe/Bar");
-        ls.add("Depo/Antrepo");
-        ls.add("Düğün Salonu");
-        ls.add("Dükkan/Mağaza");
-        ls.add("Fabrika");
-        ls.add("İmalathane");
-        ls.add("Kıraathane");
-        ls.add("Otopark");
-        ls.add("Plaza Katı");
-        ls.add("Restoran/Lokanta");
-        ls.add("Sağlık Merkezi");
-        ls.add("Sinema");
-        ls.add("SPA/Hamam/Sauna");
-        ls.add("Spor Tesisi");
-        ls.add("Yurt");
+    public void getCategory() {
+        HashMap<String, String> hmRegister = new HashMap<>();
+        hmRegister.put("ref", "3d264cacec20af4f9b237a655f49bc60");
+        String url = "http://jsonbulut.com/json/companyCategory.php";
+        new JData(url, hmRegister, this).execute();
+    }
 
-        return ls;
+
+    class JData extends AsyncTask<Void, Void, Void> {
+
+        String url = "";
+        HashMap<String, String> hashMap = null;
+        String data = "";
+        Context context;
+
+        public JData(String url, HashMap<String, String> hashMap, Context context) {
+            this.url = url;
+            this.hashMap = hashMap;
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                data = Jsoup.connect(url).data(hashMap).timeout(30000).ignoreContentType(true).execute().body();
+            } catch (Exception ex) {
+                Log.e("Get data error", "" + ex.toString());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject object = new JSONObject(data);
+                JSONObject uObject = object.getJSONArray("" + CategoryEnum.Kategoriler).getJSONObject(0);
+
+                boolean durum = uObject.getBoolean("durum");
+                String mesaj = uObject.getString("mesaj");
+                if (durum) {
+                    Log.e("HomepageCategory.durum", "" + durum);
+                    JSONArray categoryObjects = uObject.getJSONArray("" + CategoryEnum.Categories);
+//                    Log.e("HomepageCategory.categoryObjects size ",""+categoryObjects.length());
+                    categoryList = new ArrayList<>();
+                    categoryStringList = new ArrayList<>();
+                    for (int i = 0; i < categoryObjects.length(); i++) {
+                        Log.e("HomepageCategory i", "" + i);
+
+
+                        JSONObject jsonObject = categoryObjects.getJSONObject(i);
+
+                        if (jsonObject.getString("" + CategoryEnum.TopCatogryId).equals("1620")) {
+
+                            Category category = new Category();
+                            category.setId(jsonObject.getString("" + CategoryEnum.CatogryId));
+                            category.setName(jsonObject.getString("" + CategoryEnum.CatogryName));
+                            category.setTopId(jsonObject.getString("" + CategoryEnum.TopCatogryId));
+                            categoryList.add(category);
+
+                            categoryStringList.add(category.getName());
+                        }
+
+                    }
+
+                    adp = new BaseAdapter() {
+                        @Override
+                        public int getCount() {
+                            return categoryStringList.size();
+                        }
+
+                        @Override
+                        public Object getItem(int position) {
+                            return null;
+                        }
+
+                        @Override
+                        public long getItemId(int position) {
+                            return 0;
+                        }
+
+                        @Override
+                        public View getView(int position, View view, ViewGroup viewGroup) {
+                            if (view == null) {
+                                view = linf.inflate(R.layout.house_row, null);
+                            }
+
+                            try {
+                                TextView txtKategori = view.findViewById(R.id.txtHouseCategory);
+                                txtKategori.setText(categoryStringList.get(position).toString());
+                            } catch (Exception e) {
+                                Log.e("Liste doldurma hatası", e.toString());
+                            }
+                            return view;
+                        }
+                    };
+                    listBusiness.setAdapter(adp);
+
+
+                } else {
+                    Toast.makeText(HomepageBusinessCategory.this, mesaj, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception ex) {
+                Log.e("onpostexecure error", "" + ex.toString());
+            }
+        }
+
     }
 }

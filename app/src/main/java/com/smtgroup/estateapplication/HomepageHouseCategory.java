@@ -1,7 +1,11 @@
 package com.smtgroup.estateapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -24,8 +28,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smtgroup.estateapplication.enums.CategoryEnum;
+import com.smtgroup.estateapplication.properties.Category;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +59,9 @@ public class HomepageHouseCategory extends AppCompatActivity
     TextView nav_txtName, nav_txtEmail;
 
 
-    List ls = new ArrayList();
+    List<Category> categoryList = new ArrayList<>();
+    List<String> categoryStringList;
+    private String categoryId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +70,14 @@ public class HomepageHouseCategory extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dataGetir();
-        Log.d("Sizeee :", "" + ls.size());
+        Log.e("Location", "HomePageHouseCategory");
+
+
+//        categoryList = getIntent().getParcelableArrayListExtra("com.smtgroup.estateapplication.properties.Category");
+//        Log.e("category list size ", ""+categoryList.size());
+
+        getCategory();
+
         linf = LayoutInflater.from(this);
 
 
@@ -63,7 +86,7 @@ public class HomepageHouseCategory extends AppCompatActivity
         adp = new BaseAdapter() {
             @Override
             public int getCount() {
-                return ls.size();
+                return categoryList.size();
             }
 
             @Override
@@ -84,7 +107,7 @@ public class HomepageHouseCategory extends AppCompatActivity
 
                 try {
                     TextView txtKategori = view.findViewById(R.id.txtHouseCategory);
-                    txtKategori.setText(ls.get(position).toString());
+                    txtKategori.setText(categoryList.get(position).toString());
                 } catch (Exception e) {
                     Log.e("Liste doldurma hatası", e.toString());
                 }
@@ -96,7 +119,7 @@ public class HomepageHouseCategory extends AppCompatActivity
         listHouse.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                AdPage.adCategory = ls.get(i).toString();
+                AdPage.adCategory = categoryList.get(i).toString();
                 Intent intent = new Intent(HomepageHouseCategory.this, HomepageType.class);
                 startActivity(intent);
 
@@ -119,6 +142,120 @@ public class HomepageHouseCategory extends AppCompatActivity
         nav_txtEmail = navigationView.getHeaderView(0).findViewById(R.id.nav_txtEmail);
         nav_txtName.setText(MainActivity.user.getName() + " " + MainActivity.user.getSurname());
         nav_txtEmail.setText(MainActivity.user.getEmail());
+    }
+
+        public void getCategory() {
+        HashMap<String, String> hmRegister = new HashMap<>();
+        hmRegister.put("ref", "3d264cacec20af4f9b237a655f49bc60");
+        String url = "http://jsonbulut.com/json/companyCategory.php";
+        new JData(url, hmRegister, this).execute();
+    }
+
+
+    class JData extends AsyncTask<Void, Void, Void> {
+
+        String url = "";
+        HashMap<String, String> hashMap = null;
+        String data = "";
+        Context context;
+
+        public JData(String url, HashMap<String, String> hashMap, Context context) {
+            this.url = url;
+            this.hashMap = hashMap;
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                data = Jsoup.connect(url).data(hashMap).timeout(30000).ignoreContentType(true).execute().body();
+            } catch (Exception ex) {
+                Log.e("Get data error", "" + ex.toString());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject object = new JSONObject(data);
+                JSONObject uObject = object.getJSONArray("" + CategoryEnum.Kategoriler).getJSONObject(0);
+
+                boolean durum = uObject.getBoolean("durum");
+                String mesaj = uObject.getString("mesaj");
+                if (durum) {
+                    Log.e("HomepageCategory.durum", "" + durum);
+                    JSONArray categoryObjects = uObject.getJSONArray("" + CategoryEnum.Categories);
+//                    Log.e("HomepageCategory.categoryObjects size ",""+categoryObjects.length());
+                    categoryList = new ArrayList<>();
+                    categoryStringList = new ArrayList<>();
+                    for (int i = 0; i < categoryObjects.length(); i++) {
+                        Log.e("HomepageCategory i", "" + i);
+
+
+                        JSONObject jsonObject = categoryObjects.getJSONObject(i);
+
+                        if (jsonObject.getString("" + CategoryEnum.TopCatogryId).equals("1619")) {
+
+                            Category category = new Category();
+                            category.setId(jsonObject.getString("" + CategoryEnum.CatogryId));
+                            category.setName(jsonObject.getString("" + CategoryEnum.CatogryName));
+                            category.setTopId(jsonObject.getString("" + CategoryEnum.TopCatogryId));
+                            categoryList.add(category);
+
+                            categoryStringList.add(category.getName());
+                        }
+
+                    }
+
+                    adp = new BaseAdapter() {
+                        @Override
+                        public int getCount() {
+                            return categoryStringList.size();
+                        }
+
+                        @Override
+                        public Object getItem(int position) {
+                            return null;
+                        }
+
+                        @Override
+                        public long getItemId(int position) {
+                            return 0;
+                        }
+
+                        @Override
+                        public View getView(int position, View view, ViewGroup viewGroup) {
+                            if (view == null) {
+                                view = linf.inflate(R.layout.house_row, null);
+                            }
+
+                            try {
+                                TextView txtKategori = view.findViewById(R.id.txtHouseCategory);
+                                txtKategori.setText(categoryStringList.get(position).toString());
+                            } catch (Exception e) {
+                                Log.e("Liste doldurma hatası", e.toString());
+                            }
+                            return view;
+                        }
+                    };
+                    listHouse.setAdapter(adp);
+
+
+                } else {
+                    Toast.makeText(HomepageHouseCategory.this, mesaj, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception ex) {
+                Log.e("onpostexecure error", "" + ex.toString());
+            }
+        }
+
     }
 
     @Override
@@ -184,17 +321,5 @@ public class HomepageHouseCategory extends AppCompatActivity
         return true;
     }
 
-    public List dataGetir() {
 
-        ls.add("Daire");
-        ls.add("Rezidans");
-        ls.add("Müstakil");
-        ls.add("Villa");
-        ls.add("Çiftlik Evi");
-        ls.add("Köşk");
-        ls.add("Yalı");
-        ls.add("Yazlık");
-
-        return ls;
-    }
 }
