@@ -6,5 +6,5 @@ package com.smtgroup.estateapplication.enums;
  */
 
 public enum UserEnum {
-    user, userId, userName, userSurname, userPhone, userEmail, userPass
+    user, userId, userName, userSurname, userPhone, userEmail, userPass, kullaniciId, durum, mesaj
 }
