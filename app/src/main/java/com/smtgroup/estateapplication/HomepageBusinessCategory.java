@@ -2,8 +2,10 @@ package com.smtgroup.estateapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -102,6 +104,7 @@ public class HomepageBusinessCategory extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                 AdPage.adCategory = categoryStringList.get(i).toString();
+                Log.e("hpbc adcategory", AdPage.adCategory);
                 Intent intent = new Intent(HomepageBusinessCategory.this,HomepageType.class);
                 startActivity(intent);
             }
@@ -178,8 +181,18 @@ public class HomepageBusinessCategory extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_share) {
             Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_send) {
-            Toast.makeText(this, "Send butonuna tiklandi", Toast.LENGTH_SHORT).show();
+        }else if (id == R.id.nav_exit) {
+            SharedPreferences sPreferences;
+            SharedPreferences.Editor editor;
+
+            sPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            editor = sPreferences.edit();
+
+            if (editor.remove("userEmail").commit() && editor.remove("userPass").commit()){
+                Intent intent = new Intent(HomepageBusinessCategory.this, SignIn.class);
+                startActivity(intent);
+                HomepageBusinessCategory.this.finish();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

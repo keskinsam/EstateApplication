@@ -1,10 +1,12 @@
 package com.smtgroup.estateapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smtgroup.estateapplication.enums.ConstantsEnum;
 import com.smtgroup.estateapplication.properties.User;
 import com.squareup.picasso.Picasso;
 
@@ -141,8 +144,18 @@ public class HomepageType extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_share) {
             Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_send) {
-            Toast.makeText(this, "Send butonuna tiklandi", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_exit) {
+            SharedPreferences sPreferences;
+            SharedPreferences.Editor editor;
+
+            sPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            editor = sPreferences.edit();
+
+            if (editor.remove("userEmail").commit() && editor.remove("userPass").commit()){
+                Intent intent = new Intent(HomepageType.this, SignIn.class);
+                startActivity(intent);
+                HomepageType.this.finish();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

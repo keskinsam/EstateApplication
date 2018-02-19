@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/txtBrieff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/adImage"
+        android:id="@+id/imgProduct"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_marginTop="11dp"
+        app:srcCompat="@mipmap/ic_launcher" android:contentDescription="TODO" />
 
     <TextView
-        android:id="@+id/adTitle"
+        android:id="@+id/txtProductName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/adImage"
-        android:layout_toEndOf="@+id/adImage"
+        android:layout_alignTop="@+id/imgProduct"
+        android:layout_toEndOf="@+id/imgProduct"
         android:fontFamily="@font/aladin"
-        android:textSize="16sp"
+        android:text="Description  "
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/adPrice"
+        android:id="@+id/brief"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgProduct"
+        android:layout_toEndOf="@+id/imgProduct"
+        android:fontFamily="@font/aladin"
+        android:text="Location"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/txtPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/adImage"
-        android:layout_toEndOf="@+id/adImage"
-        android:fontFamily="@font/aladin"
-        android:textColor="@color/colorAccent" />
+        android:layout_alignBottom="@+id/brief"
+        android:layout_alignParentEnd="true"
+        android:text="TextView"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="11sp" />
 
 </RelativeLayout>

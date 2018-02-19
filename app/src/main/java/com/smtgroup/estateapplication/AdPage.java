@@ -3,8 +3,10 @@ package com.smtgroup.estateapplication;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +28,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.smtgroup.estateapplication.enums.ProductEnum;
 import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +37,7 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class AdPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +48,8 @@ public class AdPage extends AppCompatActivity
     ListView liste;
     BaseAdapter adp;
     LayoutInflater linf;
-    JSONArray larr;
+    JSONArray jsonArray;
+
 
 
     @Override
@@ -53,14 +59,12 @@ public class AdPage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //http://jsonbulut.com/json/product.php?ref=3d264cacec20af4f9b237a655f49bc60&start=0
-        String url = "http://jsonbulut.com/json/product.php";
-        HashMap<String,String> hm = new HashMap<>();
-        hm.put("ref","3d264cacec20af4f9b237a655f49bc60");
-        hm.put("start","0");
-        new jData(url,hm,this).execute();
+
 
         liste = findViewById(R.id.adList);
         linf = LayoutInflater.from(this);
+
+        getProduct();
 
 
 
@@ -85,8 +89,51 @@ public class AdPage extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        int id = item.getItemId();
+
+        if (id == R.id.nav_house) {
+            Intent i = new Intent(AdPage.this,HomepageHouseCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_workplace) {
+            Intent i = new Intent(AdPage.this,HomepageBusinessCategory.class);
+            startActivity(i);
+        } else if (id == R.id.nav_building) {
+            AdPage.adCategory = "Bina";
+            Intent i = new Intent(AdPage.this,HomepageType.class);
+            startActivity(i);
+        } else if (id == R.id.nav_plot) {
+            AdPage.adCategory = "Arsa";
+            Intent i = new Intent(AdPage.this,HomepageType.class);
+            startActivity(i);
+        } else if (id == R.id.nav_share) {
+            Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
+        }else if (id == R.id.nav_exit) {
+            SharedPreferences sPreferences;
+            SharedPreferences.Editor editor;
+
+            sPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            editor = sPreferences.edit();
+
+            if (editor.remove("userEmail").commit() && editor.remove("userPass").commit()){
+                Intent intent = new Intent(AdPage.this, SignIn.class);
+                startActivity(intent);
+                AdPage.this.finish();
+            }
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
+
+    public void getProduct(){
+        String url = "http://jsonbulut.com/json/product.php";
+        HashMap<String,String> hm = new HashMap<>();
+        hm.put("ref","3d264cacec20af4f9b237a655f49bc60");
+        hm.put("start","0");
+        new jData(url,hm,this).execute();
+    }
+
 
     class jData extends AsyncTask<Void, Void, Void> {
         String url = "";
@@ -120,26 +167,20 @@ public class AdPage extends AppCompatActivity
             }
             return null;
         }
-
-        // 3 - datalar geldi artık işlemleri yap
         @Override
         protected void onPostExecute(Void aVoid) {
-            // grafiksel işlemler yapılır.
-            // yeni sayfa aç yükleyiciyi durudr.
             super.onPostExecute(aVoid);
             pro.dismiss();
-            //Log.d("Gelen Data ", data);
             try {
                 JSONObject obj = new JSONObject(data);
-                boolean durum = obj.getJSONArray("Products").getJSONObject(0).getBoolean("durum");
-                String mesaj = obj.getJSONArray("Products").getJSONObject(0).getString("mesaj");
+                boolean durum = obj.getJSONArray(""+ ProductEnum.Products).getJSONObject(0).getBoolean(""+ ProductEnum.durum);
+                String mesaj = obj.getJSONArray(""+ ProductEnum.Products).getJSONObject(0).getString(""+ ProductEnum.mesaj);
                 if (durum) {
-                    // işlem başarılı
-                    larr = obj.getJSONArray("Products").getJSONObject(0).getJSONArray("bilgiler");
-                    Log.e("Array :",""+larr.length());
-                    if(larr.length() > 0) {
+                    jsonArray = obj.getJSONArray(""+ ProductEnum.Products).getJSONObject(0).getJSONArray(""+ ProductEnum.bilgiler);
+                    Log.e("Array :",""+jsonArray.length());
+                    if(jsonArray.length() > 0) {
                         // ürün var
-                        arrayFilter();
+                        arrayFilter(jsonArray);
                         dataDoldur();
                     }else {
                         Toast.makeText(cnx, "Henüz bir ürün yok !", Toast.LENGTH_SHORT).show();
@@ -188,13 +229,11 @@ public class AdPage extends AppCompatActivity
 
 
     public void dataDoldur() {
-
-
-        // larr
+        Log.e("Json array son length", ""+jsonArray.length());
         adp = new BaseAdapter() {
             @Override
             public int getCount() {
-                return larr.length();
+                return jsonArray.length();
             }
 
             @Override
@@ -212,24 +251,31 @@ public class AdPage extends AppCompatActivity
                 if (view == null) {
                     view = linf.inflate(R.layout.adpage_row, null);
                 }
-
-
-
                 try {
+                    ImageView img = view.findViewById(R.id.imgProduct);
+                    TextView txtProductName = view.findViewById(R.id.txtProductName);
+                    TextView txtBrief = view.findViewById(R.id.brief);
+                    TextView txtPrice = view.findViewById(R.id.txtPrice);
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    Log.e("ererte", "rtert");
+                    Log.e("niyee", jsonObject.getString(""+ProductEnum.productName));
+                    Log.e("niyee", jsonObject.getString(""+ProductEnum.brief));
+                    Log.e("niyee", jsonObject.getString(""+ProductEnum.price));
 
 
-                    ImageView img = view.findViewById(R.id.adImage);
-                    TextView title = view.findViewById(R.id.adTitle);
-                    TextView price = view.findViewById(R.id.adPrice);
+                    txtProductName.setText(jsonObject.getString(""+ProductEnum.productName).toString());
+                    Log.e("ererte", "rtert");
+                    txtBrief.setText(jsonObject.getString("" + ProductEnum.brief).toString());
+                    txtPrice.setText(jsonObject.getString(""+ProductEnum.price));
 
-                    JSONObject uo = larr.getJSONObject(i);
-                    title.setText(uo.getString("productName"));
-                    price.setText(uo.getString("price")+" TL");
+
+
 
                     // resim gösterimi
-                    boolean imgControl = uo.getBoolean("image");
+                    boolean imgControl = jsonObject.getBoolean("image");
                     if(imgControl) {
-                        String rurl = uo.getJSONArray("images").getJSONObject(0).getString("normal");
+                        String rurl = jsonObject.getJSONArray("images").getJSONObject(0).getString("normal");
                         Picasso.with(AdPage.this) .load(rurl) .resize(75, 75) .centerCrop() .into(img);
                     }
 
@@ -244,7 +290,7 @@ public class AdPage extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
-                    Detail.udata = larr.getJSONObject(i);
+                    Detail.udata = jsonArray.getJSONObject(i);
                     Log.d("UDATA :",""+Detail.udata);
                     Intent ii = new Intent(AdPage.this, Detail.class);
                     startActivity(ii);
@@ -256,26 +302,38 @@ public class AdPage extends AppCompatActivity
 
     }
 
-    public void arrayFilter()  {
-        for (int i=larr.length()-1;i>=0;i--) {
+    public void arrayFilter(JSONArray jsonArray1)  {
+        jsonArray = new JSONArray();
+        for (int i=jsonArray1.length()-1;i>=0;i--) {
             try {
-                if(!larr.getJSONObject(i).getJSONObject("saleInformation").getString("saleType").equals(adType)) {
-                    larr.remove(i);
+                if (jsonArray1.getJSONObject(i).getJSONObject("saleInformation").getString("saleType").equals(adType)){
+                    if(jsonArray1.getJSONObject(i).getJSONArray("categories").getJSONObject(0).getString("categoryName").equals(adCategory)) {
+                        jsonArray.put(jsonArray1.getJSONObject(i));
+                        Log.e("json category", ""+jsonArray.getJSONObject(i).getJSONArray("categories").getJSONObject(0).getString("categoryName"));
+                    }else {
+                        JSONArray array = jsonArray1.getJSONObject(i).getJSONArray("categories");
+                        if (array.length() > 1) {
+                            if (array.getJSONObject(1).getString("categoryName").equals(adCategory)){
+                                jsonArray.put(jsonArray1.getJSONObject(i));
+                            }
+                        }
+                    }
                 }
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        for (int i=larr.length()-1;i>=0;i--) {
-            try {
-                if(!larr.getJSONObject(i).getJSONArray("categories").getJSONObject(0).getString("categoryName").equals(adCategory)) {
-                    larr.remove(i);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//        for (int i=jsonArray.length()-1;i>=0;i--) {
+//            try {
+//                if(!jsonArray.getJSONObject(i).getJSONArray("categories").getJSONObject(0).getString("categoryName").equals(adCategory)) {
+//                    jsonArray.remove(i);
+//                }
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }

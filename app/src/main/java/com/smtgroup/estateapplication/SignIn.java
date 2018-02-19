@@ -134,7 +134,7 @@ public class SignIn extends AppCompatActivity {
                     user.setPhone(informsObject.getString(""+ UserEnum.userPhone));
 
                     MainActivity.user = user;
-                    Intent intent = new Intent(SignIn.this, HomepageType.class);
+                    Intent intent = new Intent(SignIn.this, HomepageCategory.class);
                     startActivity(intent);
                     SignIn.this.finish();
                 } else {
