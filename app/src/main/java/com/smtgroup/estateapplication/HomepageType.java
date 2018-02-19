@@ -142,8 +142,10 @@ public class HomepageType extends AppCompatActivity
             AdPage.adCategory = "Arsa";
             Intent i = new Intent(HomepageType.this,HomepageType.class);
             startActivity(i);
-        } else if (id == R.id.nav_share) {
-            Toast.makeText(this, "Share butonuna tiklandi", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_fav) {
+            AdPage.adCategory = "";
+            Intent i = new Intent(HomepageType.this,AdPage.class);
+            startActivity(i);
         } else if (id == R.id.nav_exit) {
             SharedPreferences sPreferences;
             SharedPreferences.Editor editor;

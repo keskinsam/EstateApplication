@@ -19,5 +19,7 @@ public enum ProductEnum {
     campaignDescription,
     categories, categoryId, categoryName,
     image, images, normal, thumb,
+    favories, product_id,
+
 
 }
