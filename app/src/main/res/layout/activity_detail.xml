@@ -12,38 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/addTitle"
+        android:layout_marginTop="27dp">
 
     </com.daimajia.slider.library.SliderLayout>
 
     <TextView
         android:id="@+id/addTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/slider" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/addPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/addTitle" />
+        android:layout_below="@+id/slider" />
+
+    <Button
+        android:id="@+id/btnExp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:text="Açıklama" />
 
     <TextView
         android:id="@+id/addAddress"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true" />
-
-    <WebView
-        android:id="@+id/addDetail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/addTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_below="@+id/addPrice"
+        android:text="TextView" />
 
 </RelativeLayout>
